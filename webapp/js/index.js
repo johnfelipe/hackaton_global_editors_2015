@@ -10,14 +10,14 @@ function init(){
 }
 
 function initApp(err, dict, results){
-	_c.groupCollapsed("DATA")
-		_c.group("dict")
+	_c.groupCollapsed("DATA");
+		_c.group("dict");
 			_c.log(dict);
-		_c.groupEnd()
-		_c.group("results")
+		_c.groupEnd();
+		_c.group("results");
 			_c.log(results);
-		_c.groupEnd()
-	_c.groupEnd()
+		_c.groupEnd();
+	_c.groupEnd();
 
 	var r = results[99][999].r; // array resultados
 	
@@ -33,14 +33,16 @@ function initApp(err, dict, results){
 	headers = [{id:'0', nombre_corto: "n"}].concat(headers);
 	
     var th = table.append("tr").selectAll("th")
-		.data(headers, function(d){return d.id;});
+		.data(headers, function(d){return d.id; });
 		
 	var th_enter = th.enter() // append ca beceras th 
         .append("th")
-        .attr('id', function(d){ return "th_" + d.id })
+        .attr('id', function(d){ return "th_" + d.id; })
+        .attr('class', function(d){ return "column_" + d.id; })
         ;
+
     th_enter.append('div')
-        .attr('id', function(d){ return "bar_" + d.id })
+        .attr('id', function(d){ return "bar_" + d.id; })
         .attr('class', 'bar')
         .style('background', function(d){
             return d.color_partido;
@@ -58,32 +60,40 @@ function initApp(err, dict, results){
 // filas....
     
     var filas = table.selectAll("tr.row")
-        .data(rows, function(d){ return d[0].id }).enter()
+        .data(rows, function(d){ return d[0].id; }).enter()
         .append("tr")
-        .attr("id", function(d){ return d[0].id })
+        .attr("id", function(d){ return d[0].id; })
         .attr("class", "row" )
         ;
-    var cells = filas.selectAll("td")
+
+    var cells = filas.selectAll("td") // append celdas
         .data(function(d){ return d; }).enter()
         .append("td")
-        .attr("id", function(d){ return "paso_" + d.id  })
-        .attr("class", function(d){ return "paso_" + d.id  })
+        .attr("id", function(d){ return "paso_" + d.id;  })
         ;
     
     cells.each(function(d, i){
         var el = d3.select(this);
 
+        var column = this.parentNode.id;
+        var row = d.id;
+
         if(i === 0){ // resultado paso
-            el.append("div").attr("id", function(d){ return "paso_name" + d.id }).text(function(d ){ return d.p + "%"; });
-            el.append("div").attr("id", function(d){ return "paso_bar" + d.id }).text(function( d ){ return dict[d.id].nombre_corto } );
+            el.append("div").attr("class", function(d){ return "paso_bar"; })
+                .style("width", function(d ){ return (d.p*2) + "%"; })
+                .style("background", function( d ){ return dict[d.id].color_partido; })
+                ;
+            el.append("div").attr("class", function(d){ return "paso_porc"; }).text(function(d ){ return d.p + "%"; });
+            el.append("div").attr("class", function(d){ return "paso_name"; }).text(function( d ){ return dict[d.id].nombre_corto; } );
             
-        }else{
+        }else{ // mas y menos para cada partido pro fila
+            el.attr("class", function(d){ return "column_" + d.id;  });
             if(this.parentNode.id == d.id){
-                el.classed("same", true);     ;
+                el.classed("same", true);
             }
-            el.append("span").attr("class", "btn mas").attr("title", "mas 1").text("+");
-            el.append("span").attr("class", "btn menos").attr("title", "menos 1").text("-");
-            el.append("span").attr("class", "btn menos").attr("title", "todo").text("++");
+            el.append("span").attr("data-column", column).attr("data-row", row).attr("class", "btn mas").attr("title", "mas 1").text("+");
+            el.append("span").attr("data-column", column).attr("data-row", row).attr("class", "btn menos").attr("title", "menos 1").text("-");
+            el.append("span").attr("data-column", column).attr("data-row", row).attr("class", "btn menos").attr("title", "todo").text("++");
         }
     });
         
@@ -92,7 +102,7 @@ function initApp(err, dict, results){
 
 function get_rows (r, headers) {
 	var rows = [];
-	for(x in r){
+	for(var x in r){
 		if(/[0-9]{4}|blc/i.test(r[x].id)){
 			var row = [r[x]].concat(headers);
 			rows.push(row);

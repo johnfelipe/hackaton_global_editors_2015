@@ -6,3 +6,9 @@ table th, table td { padding: 5px; text-align: center; }
 table th div.bar { width: 50px; display: inline-block; }
 table tr td .btn { padding: 3px; cursor: pointer;}
 table td.same { background: #dadada;}
+table td div.paso_bar { height: 20px;}
+
+/*
+// si quiero esconder columnas de los que no entraron
+*/
+.column_0013, .column_0057, .column_0081, .column_0134, .column_0136 {display: none}

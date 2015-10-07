@@ -92,12 +92,12 @@ function initApp(err, dict, dict_cand, data_results){
 
             if( i === 0 ){ // resultado paso
                 el.attr( "id", function( d ){ return "paso_" + d.idc;  } ); 
+                el.append( "div" ).attr( "class", "paso_porc" ).text(function( d ){ return d.pt_val + "%"; } );
+                el.append( "div" ).attr( "class", "paso_name" ).text(function( d ){ return dict_cand[ d.idc ].nombre_corto; } );
                 el.append( "div" ).attr( "class", function( d ){ return "paso_bar"; } )
                     // .style("width", function(d ){ return (d.p*2) + "%"; })
                     .style("background", function( d ){ return dict_cand[d.idc].color_partido; })
                     ;
-                el.append( "div" ).attr( "class", "paso_porc" ).text(function( d ){ return d.pt_val + "%"; } );
-                el.append( "div" ).attr( "class", "paso_name" ).text(function( d ){ return dict_cand[ d.idc ].nombre_corto; } );
                 
             }else{ // mas y menos para cada partido pro fila
                 el.attr( "class", function( d ) { return "column_" + d.idc;  });

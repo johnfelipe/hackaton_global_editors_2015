@@ -5,7 +5,8 @@ function init(){
 
     queue() // parallel request ajax
         .defer( d3.json, "../data/dict_partidos.json" )
-        .defer( d3.json, "../data/results_paso_old.json" )
+        .defer( d3.json, "../data/candidatesQeQ.json" )
+        // .defer( d3.json, "../data/results_paso_old.json" )
         .await( initApp );
 }
 
@@ -149,7 +150,7 @@ function initApp(err, dict, data_results){
 
     function update(){
         // update bars
-        bars.transition().style("height", function( d ){ return especulometro[d.id] + "px"; })
+        bars.transition().style("height", function( d ){ return especulometro[d.id] + "px"; });
         espec_porc.text(function( d ){ return ( especulometro[d.id] ? especulometro[d.id].toFixed(2) : 0 ) + "%"; });
         // update cells
         cells.each(function(d, i){

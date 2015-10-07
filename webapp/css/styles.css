@@ -26,23 +26,22 @@ h2{
 table{
 	width: 100%;
 	max-width: 960px;
-
-vertical-align: top;
 }
 
 table, th, td {
     border: 1px solid #dadada;
     border-collapse: collapse;
     font-family: Arial, Helvetica, sans-serif
+
 }
-table th, table td {    width: 8%; padding: 5px; text-align: center; }
+table th, table td {    width: 8%; padding: 5px; text-align: center; vertical-align: top;}
 /* bars */
 table th div.content_bar { width: 100%; display: inline-block; background: rgba(200,200,200,0.2); height: 15px; text-align: left;}
 table th div.bar {  height: 15px; display: inline-block; }
 
 table tr td .btn { padding: 3px; cursor: pointer;}
-table td.same { background: #dadada;}
-table td div.paso_bar { height: 20px;}
+table td.same { background: #E9E9E9;}
+table td div.paso_bar { height: 20px;    margin-top: 30px;}
 
 
 table th div.name{
@@ -68,6 +67,7 @@ table tr td{
 }
 
 table tr td .btn {
+	min-width: 10px;
 	padding: 4px 8px;
     border: 1px solid #dadada;
     border-radius: 5px;
@@ -82,7 +82,7 @@ table tr td .mas{
 }
 
 table tr td .menos{
-	left:36%;
+	left:32%;
 }
 
 table tr td .todos{
@@ -105,7 +105,8 @@ tr.row td:first-child {
 
 .ballotage{
 	font-size: 12px;
-	color:#ccc;
+	color:#ACACAC;
+	    margin-top: 10px;
 }
 
 table th img{
@@ -117,14 +118,23 @@ th:last-child img{
 	height: 75px;
 	border:1px solid #dadada;
 	border-radius:100px;
+	margin-top: 3px;
 }
 
 .paso_porc{
 	font-family: 'suecaslabmedium', Georgia;
-	font-size: 20px;
+	font-size: 18px;
 	color:#000;
 	margin:10px 0px;
 	float: right;
+}
+
+.paso_name{
+	font-family: 'TheSans', Georgia;
+	font-size: 12px;
+	color:#000;
+	margin:10px 0px;
+	float: left;
 }
 /*
 // si quiero esconder columnas de los que no entraron

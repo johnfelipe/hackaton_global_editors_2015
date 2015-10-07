@@ -39,23 +39,24 @@ function initApp(err, dict, dict_cand, data_results){
         .attr( 'class', function( d ){ return "column_" + d.idc; } )
         ;
 
-    var bars = th_enter.append( 'div' )
-        .attr( 'id', function( d ){ return "bar_" + d.idc; } )
-        .attr( 'class', 'bar' )
-        .style( 'background', function( d ) {
-            if( dict_cand[ d.idc ] ) {
-                return dict_cand[d.idc].color_partido;
+    th_enter.append( 'div' )
+        .attr( 'class', 'name' )
+        .text( function( d ) {
+            if (dict_cand[ d.idc ]) {
+                return dict_cand[d.idc].nombre_corto;
             }
         } )
         ;
     var espec_porc = th_enter.append( 'div' )
         .attr( 'class', 'porc' )
         .text( "0%" );
-    th_enter.append( 'div' )
-        .attr( 'class', 'name' )
-        .text( function( d ) {
-            if (dict_cand[ d.idc ]) {
-                return dict_cand[d.idc].nombre_corto;
+    
+    var bars = th_enter.append( 'div' ).attr("class", 'content_bar').append( 'div' )
+        .attr( 'id', function( d ){ return "bar_" + d.idc; } )
+        .attr( 'class', 'bar' )
+        .style( 'background', function( d ) {
+            if( dict_cand[ d.idc ] ) {
+                return dict_cand[d.idc].color_partido;
             }
         } )
         ;
@@ -140,11 +141,6 @@ function initApp(err, dict, dict_cand, data_results){
                 break;
         }
 
-        // _c.groupCollapsed("Click: td .btn"); // logging data
-        //     _c.log(d);
-        //     _c.log(especulometro);
-        //     _c.log(r);
-        // _c.groupEnd();
         update();
         d3.event.preventDefault()
     });
@@ -152,7 +148,7 @@ function initApp(err, dict, dict_cand, data_results){
 
     function update(){
         // update bars
-        bars.transition().style("height", function( d ){ return especulometro[d.idc] + "px"; });
+        bars.transition().duration(700).style("width", function( d ){ return especulometro[d.idc] + "px"; });
         espec_porc.text(function( d ){ return ( especulometro[ d.idc ] ? especulometro[d.idc].toFixed( 2 ) : 0 ) + "%"; });
         // update cells
         cells.each(function(d, i){
@@ -162,7 +158,7 @@ function initApp(err, dict, dict_cand, data_results){
             var row = this.parentNode.id;
 
             if(i === 0){ // resultado paso
-                el.select("div.paso_bar").transition()
+                el.select("div.paso_bar").transition().duration(700)
                     .style("width", function(d ){ return (d.pt_val*2) + "px"; })
                     ;
                 el.select("div.paso_porc").text(function( d ){ return d.pt_val.toFixed(2) + "%"; });

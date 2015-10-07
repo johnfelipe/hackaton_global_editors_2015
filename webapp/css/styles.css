@@ -26,6 +26,8 @@ h2{
 table{
 	width: 100%;
 	max-width: 960px;
+
+vertical-align: top;
 }
 
 table, th, td {
@@ -88,7 +90,7 @@ table tr td .todos{
 }
 
 
-tr.row td::first-child {
+tr.row td:first-child {
 	max-width: 100px;
 	text-align: left;
 }
@@ -104,6 +106,25 @@ tr.row td::first-child {
 .ballotage{
 	font-size: 12px;
 	color:#ccc;
+}
+
+table th img{
+	width: 80px;
+}
+
+th:last-child img{
+	width: 75px;
+	height: 75px;
+	border:1px solid #dadada;
+	border-radius:100px;
+}
+
+.paso_porc{
+	font-family: 'suecaslabmedium', Georgia;
+	font-size: 20px;
+	color:#000;
+	margin:10px 0px;
+	float: right;
 }
 /*
 // si quiero esconder columnas de los que no entraron

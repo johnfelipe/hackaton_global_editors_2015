@@ -1,0 +1,99 @@
+/* fonts face */
+
+
+@font-face {
+    font-family: 'TheSans';
+   src: url(TheSans_B2_5_.eot);
+	src: local("TheSans_B2_5_"),
+		   url(TheSans_B2_5_.woff) format("woff"),
+		   url(TheSans_B2_5_.svg#TheSans_B2_5_) format("svg");
+	font-style: normal;
+	font-weight: normal;
+
+}
+
+@font-face {
+    font-family: 'TheSansItalic';
+   src: url(TheSans_B2_5i.eot);
+	src: local("TheSans_B2_5i"),
+		   url(TheSans_B2_5i.woff) format("woff"),
+		   url(TheSans_B2_5i.svg#TheSans_B2_5i_) format("svg");
+	font-style: normal;
+	font-weight: normal;
+
+}
+
+@font-face {
+	font-family: "TheSansSemi";
+	src: url(TheSans_TT6_.eot);
+	src: local("TheSans_TT6_"),
+		   url(TheSans_TT6_.woff) format("woff"),
+		   url(TheSans_TT6_.svg#TheSans_TT6_) format("svg");
+	font-style: normal;
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: "TheSansSemiItalic";
+	src: url(TheSans_TT6i.eot);
+	src: local("TheSans_TT6i"),
+		   url(TheSans_TT6i.woff) format("woff"),
+		   url(TheSans_TT6i.svg#TheSans_TT6_) format("svg");
+	font-style: normal;
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: "TheSansBold";
+	src: url(TheSans_TT7_.eot);
+	src: local("TheSans_TT7_"),
+		   url(TheSans_TT7_.woff) format("woff"),
+		   url(TheSans_TT7_.svg#TheSans_TT7_) format("svg");
+	font-style: normal;
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: "TheSansBoldItalic";
+	src: url(TheSans_TT7i.eot);
+	src: local("TheSans_TT7i_"),
+		   url(TheSans_TT7i.woff) format("woff"),
+		   url(TheSans_TT7i.svg#TheSans_TT7i) format("svg");
+	font-style: normal;
+	font-weight: normal;
+}
+
+
+/********************************************************************/
+
+
+@font-face {
+    font-family: 'suecaslabmedium';
+    src: url(suecaslab-medium-webfont.eot);
+    src: url(suecaslab-medium-webfont.eot?#iefix) format("embedded-opentype"),
+         url(suecaslab-medium-webfont.woff2) format('woff2'),
+         url(suecaslab-medium-webfont.woff) format("woff"),
+         url(suecaslab-medium-webfont.ttf) format("truetype"),
+         url(suecaslab-medium-webfont.svg#suecaslabmedium) format("svg");
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+@font-face {
+    font-family: 'suecaslabbold';
+    src: url(suecaslab-bold-webfont.eot);
+    src: url(suecaslab-bold-webfont.eot?#iefix) format("embedded-opentype"),
+         url(suecaslab-bold-webfont.woff2) format('woff2'),
+         url(suecaslab-bold-webfont.woff) format("woff"),
+         url(suecaslab-bold-webfont.ttf) format("truetype"),
+         url(suecaslab-bold-webfont.svg#suecaslabbold) format("svg");
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+/********************************************************************/

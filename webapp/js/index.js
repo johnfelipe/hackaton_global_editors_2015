@@ -71,7 +71,11 @@ function initApp(err, dict, dict_cand, data_results){
         } )
         ;
 
+// ballotage
 
+    var ballotage = table.append("tr").attr("id", "ballotage")
+        ballotage.append("td").html("<div class='result_paso'>RESULTADOS PASO<div>")
+        ballotage.append("td").attr('colspan', "7").html("<div class='ballotage'>Utilizá los signo + y - para distribuir los porcentajes de votos de candidatos<div>")
 
 // filas....
     
@@ -115,7 +119,7 @@ function initApp(err, dict, dict_cand, data_results){
                 }
                 el.append( "span" ).attr( "data-type", "+" ).attr( "data-paso_id", paso_id ).attr( "class", "btn mas" ).attr( "title", "mas 1" ).text( "+" );
                 el.append( "span" ).attr( "data-type", "-" ).attr( "data-paso_id", paso_id ).attr( "class", "btn menos" ).attr( "title", "menos 1" ).text( "-" );
-                el.append( "span" ).attr( "data-type", "++" ).attr( "data-paso_id", paso_id ).attr( "class", "btn menos" ).attr( "title", "todo" ).text( "++" );
+                el.append( "span" ).attr( "data-type", "++" ).attr( "data-paso_id", paso_id ).attr( "class", "btn todos" ).attr( "title", "todo" ).text( "++" );
             }
         });
     

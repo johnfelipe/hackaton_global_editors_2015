@@ -44,6 +44,14 @@ function initApp(err, dict, dict_cand, data_results){
         })
         ;
 
+    th_enter.append( 'img' )
+        .attr('src', function(d){
+            if (dict_cand[ d.idc ]) {
+                return dict_cand[d.idc].foto;
+            }
+        })
+    ;
+    
     th_enter.append( 'div' )
         .attr( 'class', 'name' )
         .text( function( d ) {
@@ -126,7 +134,7 @@ function initApp(err, dict, dict_cand, data_results){
     update();
     
 
-    d3.selectAll( "td .btn" ).on( "click", function(d, i){ // click +, - or ++
+    d3.selectAll( "td .btn" ).on( "click", function(d, i) { // click +, - or ++
         
 
         var op = this.dataset.type; // operador (+, -, ++)

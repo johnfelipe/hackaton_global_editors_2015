@@ -1,3 +1,8 @@
+
+::selection {
+    background: none;
+}
+
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -11,4 +16,6 @@ table td div.paso_bar { height: 20px;}
 /*
 // si quiero esconder columnas de los que no entraron
 */
-/*.column_0013, .column_0057, .column_0081, .column_0134, .column_0136 {display: none}*/
+/*
+*/
+.column_3214, .column_3243, .column_3185, .column_3261, .column_3234, .column_3253, .column_3018, .column_3217, .column_3172 {display: none}

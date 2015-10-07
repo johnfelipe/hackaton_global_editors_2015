@@ -118,6 +118,8 @@ function initApp(err, dict, dict_cand, data_results){
                 el.append( "div" ).attr( "class", "paso_name" ).text(function( d ){ return dict_cand[ d.idc ].nombre_corto; } );
                 el.append( "div" ).attr( "class", function( d ){ return "paso_bar"; } )
                     .style("background", function( d ){ return dict_cand[d.idc].color_partido; })
+                
+                el.append( "div" ).attr( "class", "bar_fondo")
                     ;
                 
             }else{ // mas y menos para cada partido pro fila

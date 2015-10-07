@@ -4,7 +4,7 @@
 }
 
 h1{
-	width: 90%;
+	width: 95%;
 	margin: 10px;
 	font-family: 'suecaslabmedium', Georgia;
 	font-size: 23px;
@@ -41,7 +41,7 @@ table th div.bar {  height: 15px; display: inline-block; }
 
 table tr td .btn { padding: 3px; cursor: pointer;}
 table td.same { background: #E9E9E9;}
-table td div.paso_bar { height: 20px;    margin-top: 30px;}
+table td div.paso_bar { height: 20px;    margin-top: 35px; position: absolute;}
 
 
 table th div.name{
@@ -135,6 +135,13 @@ th:last-child img{
 	color:#000;
 	margin:10px 0px;
 	float: left;
+}
+
+.bar_fondo{
+	width: 100%;
+    height: 20px;
+    background-color: #ddd;
+        margin-top: 35px;
 }
 /*
 // si quiero esconder columnas de los que no entraron

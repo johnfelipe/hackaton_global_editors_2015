@@ -145,6 +145,7 @@ function initApp(err, dict, dict_cand, data_results){
         var r = data_filas.filter(function(x){ return x[0].idc == paso_id; })[0][0]; // get nodo desde los resultados para modificar
 
         switch(op){  // set data values
+            
             case "+":
                 if(r.pt_val > 1){ // suma 1% al seleccionado
                     r.pt_val -=1; // resto 1 al porcentaje paso 
@@ -154,10 +155,22 @@ function initApp(err, dict, dict_cand, data_results){
                     r.pt_val = 0;
                 }
                 break;
+            
             case "++":
                 especulometro[espec_id] += r.pt_val; // +1 al especulometro seleccionado
                 r.pt_val = 0;
                 break;
+            
+            case "-":
+                if(especulometro[espec_id] > 1){ // suma 1% al seleccionado
+                    especulometro[espec_id] -=1; // resto 1 al porcentaje paso 
+                    r.pt_val += 1; // +1 suma al dato paso
+                }else{
+                    r.pt_val += especulometro[espec_id]; // +1 al especulometro seleccionado
+                    especulometro[espec_id] = 0;
+                }
+                break;
+            
             default:
                 break;
         }

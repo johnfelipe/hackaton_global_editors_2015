@@ -37,6 +37,11 @@ function initApp(err, dict, dict_cand, data_results){
         .append( "th" )
         .attr( 'id', function( d ){ return "th_" + d.idc; } )
         .attr( 'class', function( d ){ return "column_" + d.idc; } )
+        .html(function ( d ) { 
+            if ( !d.pt_val ) {
+                return "<h1>SIMULADOR DE RESULTADOS</h1><h2>A partir de los resultados de las PASO recalculá el porcentaje de votos de cada candidato y armá un escenario para el 25 de octubre</h2>"
+            }
+        })
         ;
 
     th_enter.append( 'div' )
@@ -49,7 +54,12 @@ function initApp(err, dict, dict_cand, data_results){
         ;
     var espec_porc = th_enter.append( 'div' )
         .attr( 'class', 'porc' )
-        .text( "0%" );
+        .style( 'color', function( d ) {
+            if (dict_cand[ d.idc ]) {
+                return dict_cand[d.idc].nombre_corto;
+            }
+        } )
+        // .text( "" );
     
     var bars = th_enter.append( 'div' ).attr("class", 'content_bar').append( 'div' )
         .attr( 'id', function( d ){ return "bar_" + d.idc; } )
@@ -95,7 +105,6 @@ function initApp(err, dict, dict_cand, data_results){
                 el.append( "div" ).attr( "class", "paso_porc" ).text(function( d ){ return d.pt_val + "%"; } );
                 el.append( "div" ).attr( "class", "paso_name" ).text(function( d ){ return dict_cand[ d.idc ].nombre_corto; } );
                 el.append( "div" ).attr( "class", function( d ){ return "paso_bar"; } )
-                    // .style("width", function(d ){ return (d.p*2) + "%"; })
                     .style("background", function( d ){ return dict_cand[d.idc].color_partido; })
                     ;
                 

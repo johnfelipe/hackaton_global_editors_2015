@@ -43,8 +43,8 @@ function initApp(err, dict, dict_cand, data_results){
         .attr( 'id', function( d ){ return "bar_" + d.idc; } )
         .attr( 'class', 'bar' )
         .style( 'background', function( d ) {
-            if( dict[ d.idc ] ) {
-                return dict[d.idc].color_partido;
+            if( dict_cand[ d.idc ] ) {
+                return dict_cand[d.idc].color_partido;
             }
         } )
         ;
@@ -66,7 +66,7 @@ function initApp(err, dict, dict_cand, data_results){
     
     var data_filas = get_rows(results);
     var filas = table.selectAll( "tr.row" )
-        .data( data_filas, function( d ){ _c.log(d); return d[ 0 ].idc; } ).enter()
+        .data( data_filas, function( d ){ return d[ 0 ].idc; } ).enter()
         .append( "tr" )
         .attr( "id", function( d ){ return d[ 0 ].idc; } )
         .attr( "class", "row" )

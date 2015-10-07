@@ -21,97 +21,97 @@ function initApp(err, dict, data_results){
 
     var especulometro = {}; // data acumulada para el especulometro
     
-    var results = data_results[99][999].r; // array resultados
+    var results = data_results[ 99 ][ 999 ].r; // array resultados
     
-    var headers = get_headers(dict);
-    var rows = get_rows(results, headers);
+    var headers = get_headers( dict );
+    var rows = get_rows( results, headers );
 
-    var table = d3.select("#viz").append("table");
+    var table = d3.select( "#viz" ).append( "table" );
 
     // var thead = table.append("thead");
     // var tbody = table.append("tbody");
 
 // cabeceras...
-    headers = [{id:'0', nombre_corto: "n"}].concat(headers);
+    headers = [ { id: '0', nombre_corto: "n" } ].concat( headers );
     
-    var th = table.append("tr").selectAll("th")
-        .data(headers, function(d){return d.id; });
+    var th = table.append( "tr" ).selectAll( "th" )
+        .data( headers, function( d ){ return d.id; });
         
     var th_enter = th.enter() // append ca beceras th 
-        .append("th")
-        .attr('id', function(d){ return "th_" + d.id; })
-        .attr('class', function(d){ return "column_" + d.id; })
+        .append( "th" )
+        .attr( 'id', function( d ){ return "th_" + d.id; } )
+        .attr( 'class', function( d ){ return "column_" + d.id; } )
         ;
 
-    var bars = th_enter.append('div')
-        .attr('id', function(d){ return "bar_" + d.id; })
-        .attr('class', 'bar')
-        .style('background', function(d){
+    var bars = th_enter.append( 'div' )
+        .attr( 'id', function( d ){ return "bar_" + d.id; } )
+        .attr( 'class', 'bar' )
+        .style( 'background', function( d ) {
             return d.color_partido;
-        })
+        } )
         ;
-    var espec_porc = th_enter.append('div')
-        .attr('class', 'porc')
-        .text("0%");
-    th_enter.append('div')
-        .attr('class', 'name')
-        .text(function(d){
+    var espec_porc = th_enter.append( 'div' )
+        .attr( 'class', 'porc' )
+        .text( "0%" );
+    th_enter.append( 'div' )
+        .attr( 'class', 'name' )
+        .text( function( d ) {
             return d.nombre_corto;
-        })
+        } )
         ;
 
 
 
 // filas....
     
-    var filas = table.selectAll("tr.row")
-        .data(rows, function(d){ return d[0].id; }).enter()
-        .append("tr")
-        .attr("id", function(d){ return d[0].id; })
-        .attr("class", "row" )
+    var filas = table.selectAll( "tr.row" )
+        .data( rows, function( d ){ return d[ 0 ].id; } ).enter()
+        .append( "tr" )
+        .attr( "id", function( d ){ return d[ 0 ].id; } )
+        .attr( "class", "row" )
         ;
 
-    var cells = filas.selectAll("td") // append celdas
-        .data(function(d){ return d; });
+    var cells = filas.selectAll( "td" ) // append celdas
+        .data( function( d ){ return d; } );
     var cells_enter = cells.enter()
-        .append("td")
+        .append( "td" )
         ;
 
-    cells_enter.each(function(d, i){
+    cells_enter.each( function( d, i ) {
             
-            if(!especulometro[d.id]){
-                especulometro[d.id] = 0;
+            if ( !especulometro[ d.id ] ) {
+                especulometro[ d.id ] = 0;
             }
             
-            var el = d3.select(this);
+            var el = d3.select( this );
 
             var column = d.id;
             var paso_id = this.parentNode.id;
 
-            if(i === 0){ // resultado paso
-                el.attr("id", function(d){ return "paso_" + d.id;  }); 
-                el.append("div").attr("class", function(d){ return "paso_bar"; })
+            if( i === 0 ){ // resultado paso
+                el.attr( "id", function( d ){ return "paso_" + d.id;  } ); 
+                el.append( "div" ).attr( "class", function( d ){ return "paso_bar"; } )
                     // .style("width", function(d ){ return (d.p*2) + "%"; })
                     .style("background", function( d ){ return dict[d.id].color_partido; })
                     ;
-                el.append("div").attr("class", "paso_porc").text(function(d ){ return d.p + "%"; });
-                el.append("div").attr("class", "paso_name").text(function( d ){ return dict[d.id].nombre_corto; } );
+                el.append( "div" ).attr( "class", "paso_porc" ).text(function( d ){ return d.p + "%"; } );
+                el.append( "div" ).attr( "class", "paso_name" ).text(function( d ){ return dict[ d.id ].nombre_corto; } );
                 
             }else{ // mas y menos para cada partido pro fila
-                el.attr("class", function(d){ return "column_" + d.id;  });
-                if(this.parentNode.id == d.id){
-                    el.classed("same", true);
+                el.attr( "class", function( d ) { return "column_" + d.id;  });
+                if( this.parentNode.id == d.id ){
+                    el.classed( "same", true );
                 }
-                el.append("span").attr("data-type", "+").attr("data-paso_id", paso_id).attr("class", "btn mas").attr("title", "mas 1").text("+");
-                el.append("span").attr("data-type", "-").attr("data-paso_id", paso_id).attr("class", "btn menos").attr("title", "menos 1").text("-");
-                el.append("span").attr("data-type", "++").attr("data-paso_id", paso_id).attr("class", "btn menos").attr("title", "todo").text("++");
+                el.append( "span" ).attr( "data-type", "+" ).attr( "data-paso_id", paso_id ).attr( "class", "btn mas" ).attr( "title", "mas 1" ).text( "+" );
+                el.append( "span" ).attr( "data-type", "-" ).attr( "data-paso_id", paso_id ).attr( "class", "btn menos" ).attr( "title", "menos 1" ).text( "-" );
+                el.append( "span" ).attr( "data-type", "++" ).attr( "data-paso_id", paso_id ).attr( "class", "btn menos" ).attr( "title", "todo" ).text( "++" );
             }
         });
 
     update();
     
 
-    d3.selectAll("td .btn").on("click", function(d, i){
+    d3.selectAll( "td .btn" ).on( "click", function(d, i){ // click +, - or ++
         
 
         var op = this.dataset.type; // operador (+, -, ++)
@@ -120,7 +120,7 @@ function initApp(err, dict, data_results){
         // var paso = d3.select("#paso_"+row);
         var r = results.filter(function(x){ return x.id == paso_id; })[0]; // get nodo desde los resultados para modificar
 
-        switch(op){
+        switch(op){  // set data values
             case "+":
                 if(r.p > 1){ // suma 1% al seleccionado
                     r.p -=1; // resto 1 al porcentaje paso 
@@ -137,7 +137,7 @@ function initApp(err, dict, data_results){
             default:
                 break;
         }
-        
+
         _c.groupCollapsed("Click: td .btn"); // logging data
             _c.log(d);
             _c.log(especulometro);

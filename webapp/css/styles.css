@@ -3,9 +3,30 @@
     background: none;
 }
 
+h1{
+	width: 90%;
+	margin: 10px;
+	font-family: 'suecaslabmedium', Georgia;
+	font-size: 23px;
+	color:#fff;
+}
+
+h2{
+	margin: 10px;
+	font-family: Arial,	Helvetica, sans-serif;
+	font-size: 12px;
+	color:#fff;
+}
+
+table{
+	width: 100%;
+	max-width: 960px;
+}
+
 table, th, td {
-    border: 1px solid black;
+    border: 1px solid #dadada;
     border-collapse: collapse;
+    font-family: Arial, Helvetica, sans-serif
 }
 table th, table td { padding: 5px; text-align: center; }
 /* bars */
@@ -16,6 +37,50 @@ table tr td .btn { padding: 3px; cursor: pointer;}
 table td.same { background: #dadada;}
 table td div.paso_bar { height: 20px;}
 
+
+table th div.name{
+	font-family: 'TheSans', Georgia;
+	font-size: 18px;
+	color:#000;
+	margin:10px 0px;
+}
+
+table th div.porc{
+	font-family: 'suecaslabmedium', Georgia;
+	font-size: 24px;
+	color:#000;
+	margin:10px 0px;
+}
+
+th#th_undefined .name, th#th_undefined .porc, th#th_undefined .content_bar{
+	display: none;
+}
+
+table tr td{
+	position: relative;
+}
+
+table tr td .btn {
+	padding: 5px 9px;
+    border: 1px solid #dadada;
+    border-radius: 5px;
+    background-color: #fff;
+    margin: 5px 1px;
+    position: absolute;
+    top: 20%;
+}
+
+table tr td .mas{
+	left:5%;
+}
+
+table tr td .menos{
+	left:36%;
+}
+
+table tr td .todo{
+	left:56%;
+}
 /*
 // si quiero esconder columnas de los que no entraron
 */

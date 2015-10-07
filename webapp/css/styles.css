@@ -1,0 +1,8 @@
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table th, table td { padding: 5px; text-align: center; }
+table th div.bar { width: 50px; display: inline-block; }
+table tr td .btn { padding: 3px; cursor: pointer;}
+table td.same { background: #dadada;}

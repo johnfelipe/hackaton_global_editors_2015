@@ -1,0 +1,20 @@
+{
+  "name": "hackaton_global_editors_2015",
+  "version": "0.0.0",
+  "homepage": "https://github.com/lanacioncom/hackaton_global_editors_2015",
+  "authors": [
+    "cbertelegni <cristianbertelegni@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.5.6",
+    "queue-async": "~1.0.7"
+  }
+}

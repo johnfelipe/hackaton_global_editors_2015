@@ -15,40 +15,36 @@ function initApp(err, dict, data_results){
         _c.group("dict");
             _c.log(dict);
         _c.groupEnd();
-        _c.group("results");
-            _c.log(results);
+        _c.group("data_results");
+            _c.log(data_results);
         _c.groupEnd();
     _c.groupEnd();
 
     var especulometro = {}; // data acumulada para el especulometro
     
-    var results = data_results[ 99 ][ 999 ].r; // array resultados
-    
-    var headers = get_headers( dict );
-    var rows = get_rows( results, headers );
+    var results = data_results.candidatos.clone(); // array resultados
 
     var table = d3.select( "#viz" ).append( "table" );
 
-    // var thead = table.append("thead");
-    // var tbody = table.append("tbody");
-
 // cabeceras...
-    headers = [ { id: '0', nombre_corto: "n" } ].concat( headers );
+    var headers = [ { idp: '0', nombre_corto: "n" } ].concat( results );
     
     var th = table.append( "tr" ).selectAll( "th" )
-        .data( headers, function( d ){ return d.id; });
+        .data( headers, function( d ){ return d.idp; });
         
     var th_enter = th.enter() // append ca beceras th 
         .append( "th" )
-        .attr( 'id', function( d ){ return "th_" + d.id; } )
-        .attr( 'class', function( d ){ return "column_" + d.id; } )
+        .attr( 'id', function( d ){ return "th_" + d.idp; } )
+        .attr( 'class', function( d ){ return "column_" + d.idp; } )
         ;
 
     var bars = th_enter.append( 'div' )
-        .attr( 'id', function( d ){ return "bar_" + d.id; } )
+        .attr( 'id', function( d ){ return "bar_" + d.idp; } )
         .attr( 'class', 'bar' )
         .style( 'background', function( d ) {
-            return d.color_partido;
+            if( dict[ d.idp ] ) {
+                return dict[d.idp].color_partido;
+            }
         } )
         ;
     var espec_porc = th_enter.append( 'div' )
@@ -57,7 +53,9 @@ function initApp(err, dict, data_results){
     th_enter.append( 'div' )
         .attr( 'class', 'name' )
         .text( function( d ) {
-            return d.nombre_corto;
+            if (dict[d.idp]) {
+                return dict[d.idp].nombre_corto;
+            }
         } )
         ;
 
@@ -65,10 +63,12 @@ function initApp(err, dict, data_results){
 
 // filas....
     
+    var data_filas = get_rows(results);
+
     var filas = table.selectAll( "tr.row" )
-        .data( rows, function( d ){ return d[ 0 ].id; } ).enter()
+        .data( data_filas, function( d ){  return d[ 0 ].idp; } ).enter()
         .append( "tr" )
-        .attr( "id", function( d ){ return d[ 0 ].id; } )
+        .attr( "id", function( d ){ return d[ 0 ].idp; } )
         .attr( "class", "row" )
         ;
 
@@ -80,27 +80,27 @@ function initApp(err, dict, data_results){
 
     cells_enter.each( function( d, i ) {
             
-            if ( !especulometro[ d.id ] ) {
-                especulometro[ d.id ] = 0;
+            if ( !especulometro[ d.idp ] ) {
+                especulometro[ d.idp ] = 0;
             }
             
             var el = d3.select( this );
 
-            var column = d.id;
+            var column = d.idp;
             var paso_id = this.parentNode.id;
 
             if( i === 0 ){ // resultado paso
-                el.attr( "id", function( d ){ return "paso_" + d.id;  } ); 
+                el.attr( "id", function( d ){ return "paso_" + d.idp;  } ); 
                 el.append( "div" ).attr( "class", function( d ){ return "paso_bar"; } )
                     // .style("width", function(d ){ return (d.p*2) + "%"; })
-                    .style("background", function( d ){ return dict[d.id].color_partido; })
+                    .style("background", function( d ){ return dict[d.idp].color_partido; })
                     ;
-                el.append( "div" ).attr( "class", "paso_porc" ).text(function( d ){ return d.p + "%"; } );
-                el.append( "div" ).attr( "class", "paso_name" ).text(function( d ){ return dict[ d.id ].nombre_corto; } );
+                el.append( "div" ).attr( "class", "paso_porc" ).text(function( d ){ return d.pt_val + "%"; } );
+                el.append( "div" ).attr( "class", "paso_name" ).text(function( d ){ return dict[ d.idp ].nombre_corto; } );
                 
             }else{ // mas y menos para cada partido pro fila
-                el.attr( "class", function( d ) { return "column_" + d.id;  });
-                if( this.parentNode.id == d.id ){
+                el.attr( "class", function( d ) { return "column_" + d.idp;  });
+                if( this.parentNode.id == d.idp ){
                     el.classed( "same", true );
                 }
                 el.append( "span" ).attr( "data-type", "+" ).attr( "data-paso_id", paso_id ).attr( "class", "btn mas" ).attr( "title", "mas 1" ).text( "+" );
@@ -108,7 +108,7 @@ function initApp(err, dict, data_results){
                 el.append( "span" ).attr( "data-type", "++" ).attr( "data-paso_id", paso_id ).attr( "class", "btn menos" ).attr( "title", "todo" ).text( "++" );
             }
         });
-
+    
     update();
     
 
@@ -117,23 +117,23 @@ function initApp(err, dict, data_results){
 
         var op = this.dataset.type; // operador (+, -, ++)
         var paso_id = this.dataset.paso_id;
-        var espec_id = d.id;
+        var espec_id = d.idp;
         // var paso = d3.select("#paso_"+row);
-        var r = results.filter(function(x){ return x.id == paso_id; })[0]; // get nodo desde los resultados para modificar
+        var r = data_filas.filter(function(x){ return x[0].idp == paso_id; })[0][0]; // get nodo desde los resultados para modificar
 
         switch(op){  // set data values
             case "+":
-                if(r.p > 1){ // suma 1% al seleccionado
-                    r.p -=1; // resto 1 al porcentaje paso 
+                if(r.pt_val > 1){ // suma 1% al seleccionado
+                    r.pt_val -=1; // resto 1 al porcentaje paso 
                     especulometro[espec_id] += 1; // +1 al especulometro seleccionado
                 }else{
-                    especulometro[espec_id] += r.p; // +1 al especulometro seleccionado
-                    r.p = 0;
+                    especulometro[espec_id] += r.pt_val; // +1 al especulometro seleccionado
+                    r.pt_val = 0;
                 }
                 break;
             case "++":
-                especulometro[espec_id] += r.p; // +1 al especulometro seleccionado
-                r.p = 0;
+                especulometro[espec_id] += r.pt_val; // +1 al especulometro seleccionado
+                r.pt_val = 0;
                 break;
             default:
                 break;
@@ -150,20 +150,20 @@ function initApp(err, dict, data_results){
 
     function update(){
         // update bars
-        bars.transition().style("height", function( d ){ return especulometro[d.id] + "px"; });
-        espec_porc.text(function( d ){ return ( especulometro[d.id] ? especulometro[d.id].toFixed(2) : 0 ) + "%"; });
+        bars.transition().style("height", function( d ){ return especulometro[d.idp] + "px"; });
+        espec_porc.text(function( d ){ return ( especulometro[ d.idp ] ? especulometro[d.idp].toFixed( 2 ) : 0 ) + "%"; });
         // update cells
         cells.each(function(d, i){
             var el = d3.select(this);
 
-            var column = d.id;
+            var column = d.idp;
             var row = this.parentNode.id;
 
             if(i === 0){ // resultado paso
                 el.select("div.paso_bar").transition()
-                    .style("width", function(d ){ return (d.p*2) + "px"; })
+                    .style("width", function(d ){ return (d.pt_val*2) + "px"; })
                     ;
-                el.select("div.paso_porc").text(function( d ){ return d.p.toFixed(2) + "%"; });
+                el.select("div.paso_porc").text(function( d ){ return d.pt_val.toFixed(2) + "%"; });
                 
             }else{ // mas y menos para cada partido pro fila
             
@@ -171,29 +171,11 @@ function initApp(err, dict, data_results){
         });
     }
 
-
 }
 
-function get_rows (r, headers) {
-	var rows = [];
-	for(var x in r){
-		if(/[0-9]{4}|blc/i.test(r[x].id)){
-			var row = [r[x]].concat(headers);
-			rows.push(row);
-		}
-	}
-	return rows;
-}
-
-function get_headers(r){
-
-	var h = [];
-	for (var x in r) {
-		if (/[0-9]{4}|blc/i.test(x)){
-			r[x].id = x;
-			h.push(r[x]);
-		}
-	} 
-
-	return h;
+function get_rows ( results ) {
+    var rows = results.map( function( x ) { 
+        return [ x ].concat( results ); 
+    } );
+    return rows;
 }

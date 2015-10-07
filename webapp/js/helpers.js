@@ -1,5 +1,4 @@
 
-"use strict";
 
 /** extend Number class */
 Number.prototype.format = function(c, d, t){

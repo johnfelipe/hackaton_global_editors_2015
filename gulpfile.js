@@ -92,7 +92,7 @@ gulp.task('watch',function(){
 });
 
 gulp.task('connect', plugins.connect.server({
-    root: ['build'],
+    root: ['webapp'],
     port: 8080,
     livereload: true
 }));
